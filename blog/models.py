@@ -9,6 +9,8 @@ class Post(models.Model):
     picture = models.ImageField(upload_to='post/')
     like = models.ManyToManyField(MyUser, related_name='like', blank=True)
     follow = models.ManyToManyField(MyUser, related_name='follow', blank=True)
+    view_count = models.IntegerField(default=0)
+    like_count = models.PositiveIntegerField(default=0)
 
     is_published = models.BooleanField(default=True)
 
@@ -58,3 +60,18 @@ class Follow(models.Model):
 
     def __str__(self):
         return self.follower.user.username
+
+class Settings(models.Model):
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    email = models.EmailField()
+    about_me = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.firstname}"
+
+
+
